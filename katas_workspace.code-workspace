@@ -44,6 +44,15 @@
 		},
 		{
 			"path": "Double_cola"
+		},
+		{
+			"path": "Build_Tower"
+		},
+		{
+			"path": "The_Observed_PIN"
+		},
+		{
+			"path": "Multiplication_Table"
 		}
 	]
 }
