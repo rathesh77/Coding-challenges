@@ -53,6 +53,12 @@
 		},
 		{
 			"path": "Multiplication_Table"
+		},
+		{
+			"path": "Sentences_with_Functions"
+		},
+		{
+			"path": "Path Finder #1 can you reach the exit"
 		}
 	]
 }
