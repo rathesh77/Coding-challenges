@@ -1,0 +1,49 @@
+{
+	"folders": [
+		{
+			"path": "anagrams_5kyu"
+		},
+		{
+			"path": "First_non-repeating_character"
+		},
+		{
+			"path": "Valid_parentheses"
+		},
+		{
+			"path": "Find_the_unique_number"
+		},
+		{
+			"path": "Buddy_Pairs"
+		},
+		{
+			"path": "find_number_in_an_array_#1"
+		},
+		{
+			"path": "Strip_Comments"
+		},
+		{
+			"path": "Simple_pig_latin"
+		},
+		{
+			"path": "Best travel"
+		},
+		{
+			"path": "Matrix_Determinant"
+		},
+		{
+			"path": "Memoized_Fibonacci"
+		},
+		{
+			"path": "Build_a_pile_of_Cubes"
+		},
+		{
+			"path": "Extract_the_domain_name_from_a_URL"
+		},
+		{
+			"path": "The Hashtag Generator"
+		},
+		{
+			"path": "Double_cola"
+		}
+	]
+}
