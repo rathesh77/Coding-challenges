@@ -5,4 +5,4 @@ function towerBuilder(nFloors) {
   }
   return result.reverse();
 }
-console.log(towerBuilder(6))
+console.log(towerBuilder(10))

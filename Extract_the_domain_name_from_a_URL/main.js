@@ -16,3 +16,4 @@ function domainName(url) {
 
     return url;
 }
+console.log(domainName('https://rathesh-io.herokuapp.com/'))

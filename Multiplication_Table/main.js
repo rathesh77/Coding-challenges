@@ -7,3 +7,5 @@ multiplicationTable = function (size) {
   }
   return table;
 }
+
+console.log(multiplicationTable(10))
