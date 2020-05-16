@@ -14,3 +14,4 @@ function anagrams(word, words) {
     }
     return finalArray;
 }
+console.log(anagrams('abba',['abab','aabb','abbb','ab','a']))
