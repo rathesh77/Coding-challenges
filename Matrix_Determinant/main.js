@@ -10,15 +10,16 @@ function determinant(m) {
     iterateMatrix(m, m[0][0]);
 
     var finalResult = valeurs.reduce((acc, currentVal) => acc + currentVal);
-    if (m.length <= 3 || m.length >= 5)
-        finalResult /= m[0][0];
+    finalResult /= m[0][0];
 
     valeurs = [];
     return finalResult;
 };
+
 function squaredMatrixDeterminant(m) {
     return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
 }
+
 function iterateMatrix(m, val) {
     if (m.length < 2)
         return;
@@ -49,13 +50,9 @@ function getMat(i, ignore, m) {
 var currentTime = new Date().getTime();
 
 console.log(determinant([
-    [-6, 8, 8, 5, 5, 4, 2, 1],
-    [5, 4, 9, 1, 9, 7, -4, 7],
-    [-3, 6, 5, -7, 2, 5, 1, 5],
-    [7, 5, 4, 9, 1, 5, 0, 8],
-    [9, 2, 4, 9, 2, 1, 0, 9],
-    [0, 5, -2, 1, 2, 2, 5, 3],
-    [6, -5, 4, 6, 6, 7, 0, 3],
-    [7, 6, 1, 6, 8, -2, 8, 5]]));
+
+    [1, 2, 3, 4, 8], [5, 6, 7, 8, 0], [-9, 1, 2, 879, 3], [-55, 28, 19, 56, -77], [156, -456, 2, 1112, 9]
+
+]));
 
 console.log("\nTemps d'execution: " + (new Date().getTime() - currentTime) / 1000 + " secondes");
