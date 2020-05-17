@@ -1,3 +1,5 @@
+var valeurs = [];
+
 function determinant(m) {
     if (m[0].length == 1)
         return parseInt(m[0])
@@ -17,7 +19,6 @@ function determinant(m) {
 function squaredMatrixDeterminant(m) {
     return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
 }
-var valeurs = []
 function iterateMatrix(m, val) {
     if (m.length < 2)
         return;
@@ -44,5 +45,17 @@ function getMat(i, ignore, m) {
     }
     return matrix;
 }
-console.log(determinant([ [60, 158, 178], [48, -28, -5], [-2, -88, 47] ]))
 
+var currentTime = new Date().getTime();
+
+console.log(determinant([
+    [-6, 8, 8, 5, 5, 4, 2, 1],
+    [5, 4, 9, 1, 9, 7, -4, 7],
+    [-3, 6, 5, -7, 2, 5, 1, 5],
+    [7, 5, 4, 9, 1, 5, 0, 8],
+    [9, 2, 4, 9, 2, 1, 0, 9],
+    [0, 5, -2, 1, 2, 2, 5, 3],
+    [6, -5, 4, 6, 6, 7, 0, 3],
+    [7, 6, 1, 6, 8, -2, 8, 5]]));
+
+console.log("\nTemps d'execution: " + (new Date().getTime() - currentTime) / 1000 + " secondes");
