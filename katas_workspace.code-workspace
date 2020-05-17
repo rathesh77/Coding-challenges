@@ -59,6 +59,9 @@
 		},
 		{
 			"path": "Path Finder #1 can you reach the exit"
+		},
+		{
+			"path": "k_primes"
 		}
 	]
 }
