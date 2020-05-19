@@ -7,7 +7,7 @@ function determinant(m) {
         return parseInt(m[0])
 
     if (m[0].length == 2)
-        return squaredMatrixDeterminant(m);
+        return squaredMatrixDeterminant(m,1);
 
     iterateMatrix(m);
 
@@ -20,9 +20,7 @@ function determinant(m) {
 
 function squaredMatrixDeterminant(m, val) {
     if (m[0].length == 2) {
-        if (val == undefined)
-            return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
-
+    
         return val * ((m[0][0] * m[1][1]) - (m[0][1] * m[1][0]));
     }
     addValues(1,m[0].length,m,val)
