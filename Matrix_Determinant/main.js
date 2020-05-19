@@ -19,10 +19,9 @@ function determinant(m) {
 };
 
 function squaredMatrixDeterminant(m, val) {
-    if (m[0].length == 2) {
-    
+    if (m[0].length == 2) 
         return val * ((m[0][0] * m[1][1]) - (m[0][1] * m[1][0]));
-    }
+        
     addValues(1,m[0].length,m,val)
     return squaredMatrixDeterminant(getMatrix(1, 0, m), val * m[0][0])
 }
