@@ -11,11 +11,11 @@ function determinant(m) {
 
     iterateMatrix(m);
 
-    var finalResult = valeurs.filter((w) => w != undefined).reduce((acc, currentVal) => acc + currentVal);
-   
+    var det = valeurs.reduce((acc, currentVal) => acc + currentVal);
+
     valeurs = [];
 
-    return finalResult;
+    return det;
 };
 
 function squaredMatrixDeterminant(m, val) {
@@ -25,13 +25,13 @@ function squaredMatrixDeterminant(m, val) {
 
         return val * ((m[0][0] * m[1][1]) - (m[0][1] * m[1][0]));
     }
-    valeurs.push(squaredMatrixDeterminant(getMatrix(1, 0, m), val * m[0][0]))
     for (var i = 1; i < m[0].length; i++) {
         if (i % 2 == 0)
             valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), val * m[0][i]))
         else
             valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), -1 * val * m[0][i]))
     }
+    return squaredMatrixDeterminant(getMatrix(1, 0, m), val * m[0][0])
 }
 
 function iterateMatrix(m) {
