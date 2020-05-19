@@ -25,24 +25,22 @@ function squaredMatrixDeterminant(m, val) {
 
         return val * ((m[0][0] * m[1][1]) - (m[0][1] * m[1][0]));
     }
-    for (var i = 1; i < m[0].length; i++) {
+    addValues(1,m[0].length,m,val)
+    return squaredMatrixDeterminant(getMatrix(1, 0, m), val * m[0][0])
+}
+
+function iterateMatrix(m) {
+    addValues(0,m[0].length,m,1)
+}
+function addValues(start,end,m,val)
+{
+    for (var i = start; i <end; i++) {
         if (i % 2 == 0)
             valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), val * m[0][i]))
         else
             valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), -1 * val * m[0][i]))
     }
-    return squaredMatrixDeterminant(getMatrix(1, 0, m), val * m[0][0])
 }
-
-function iterateMatrix(m) {
-    for (var i = 0; i < m[0].length; i++) {
-        if (i % 2 == 0)
-            valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), m[0][i]))
-        else
-            valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), -1 * m[0][i]))
-    }
-}
-
 function getMatrix(i, ignore, m) {
     var matrix = [];
     for (var k = i; k < m.length; k++) {
