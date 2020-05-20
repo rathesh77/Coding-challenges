@@ -18,18 +18,16 @@ function countKprimes(k, start, nd) {
 function whatIsKOf(number) {
   var i = 0;
   var countPrimes = 0;
-  while (number > 1) {
-
+  while (!isPrimeNumber(number) && number>1 ) {
+   // console.log(number)
     if (number % primeNumbers[i] != 0) {
-      if ( isPrimeNumber(number))
-        return countPrimes + 1;
       i++;
       continue;
     }
     number /= primeNumbers[i];
     countPrimes++;
   }
-  return countPrimes;
+  return countPrimes+1;
 }
 
 function isPrimeNumber(number)
@@ -43,20 +41,12 @@ function isPrimeNumber(number)
 }
 function puzzle(s) {
   // your code
-  var one_prime = [];
-  var three_prime = [];
-  var seven_prime = []
+  var one_prime = countKprimes(1,0,s);
+  var three_prime = countKprimes(3,0,s);
+  var seven_prime = countKprimes(7,0,s);
   var count = 0;
-  for (var i = 1; i <= s; i++) {
-
-    if (whatIsKOf(i) == 1)
-      one_prime.push(i)
-    if (whatIsKOf(i) == 3)
-      three_prime.push(i)
-    if (whatIsKOf(i) == 7)
-      seven_prime.push(i)
-  }
-  count += lookForSolutions(one_prime, three_prime, seven_prime,s) 
+ 
+  count = lookForSolutions(one_prime, three_prime, seven_prime,s) 
 
   //console.log(one_prime)
   //console.log(three_prime)
@@ -95,5 +85,5 @@ function lookForSolutions(one_prime, three_prime, seven_prime,s) {
 }
 var currentTime = new Date().getTime();
 console.log(countKprimes(5, 500, 600));
-console.log(puzzle(138))
+console.log(puzzle(143))
 console.log("\nTemps d'execution: " + (new Date().getTime() - currentTime) / 1000 + " secondes");
