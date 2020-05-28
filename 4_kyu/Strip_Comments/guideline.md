@@ -3,17 +3,6 @@ Complete the solution so that it strips all text that follows any of a set of co
 
 Example:
 
-Given an input string of:
-apples, pears\n
-$ and bananas
-grapes
-bananas !apples
-
-The output expected would be:
-apples, pears
-grapes
-bananas
-
 The code would be called like so:
 ```
 solution("apples, pears # and bananas\ngrapes\nbananas !apples", ["#", "!"]) should return "apples, pears\ngrapes\nbananas"
