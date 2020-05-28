@@ -5,7 +5,7 @@ Example:
 
 Given an input string of:
 apples, pears 
-- and bananas
+$ and bananas
 grapes
 bananas !apples
 
