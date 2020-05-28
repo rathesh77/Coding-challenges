@@ -1,7 +1,7 @@
 
 let temporarySnail = [];
 snail = function (array) {
-  
+
   clockWise(array);
   const snail = temporarySnail;
   temporarySnail = [];
@@ -22,7 +22,7 @@ function clockWise(array) {
       temporarySnail.push(arr[j]);
 
   }
-  for (let i = array.length - 2; i > 0; i--) 
+  for (let i = array.length - 2; i > 0; i--)
     temporarySnail.push(array[i][0])
 
   if (array.length < 3)
@@ -34,10 +34,16 @@ function getSnail(array) {
 
   for (let i = 1; i < array.length - 1; i++) {
     innerSnail.push([]);
-    for (let j = 1; j < array[i].length - 1; j++) 
+    for (let j = 1; j < array[i].length - 1; j++)
       innerSnail[innerSnail.length - 1].push(array[i][j]);
   }
   return innerSnail;
 }
 
-console.log(snail([[1, 2, 3, 4, 5, 6], [20, 21, 22, 23, 24, 7], [19, 32, 33, 34, 25, 8], [18, 31, 36, 35, 26, 9], [17, 30, 29, 28, 27, 10], [16, 15, 14, 13, 12, 11]]))
+const input = [[1, 2, 3, 4, 5, 6], [4, 5, 6, 2, 0, 7], [2, 1, 8, 7, 9, 8], [4, 5, 6, 7, 1, 9], [2, 3, 4, 5, 8, 9], [9, 7, 1, 4, 3, 6]];
+console.log("input: ");
+input.forEach((element) => { console.log(...element); })
+console.log("\nOutput: " + snail(input));
+
+
+
