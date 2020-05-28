@@ -4,7 +4,7 @@ Complete the solution so that it strips all text that follows any of a set of co
 Example:
 
 Given an input string of:
-apples, pears 
+apples, pears\n
 $ and bananas
 grapes
 bananas !apples
