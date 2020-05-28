@@ -10,7 +10,7 @@ A 2x2 matrix [ [a, b], [c, d] ] or
 |a  b|
 |c  d|
 
-has determinant: a*d - b*c.
+has determinant: **a*d - b*c**.
 
 The determinant of an n x n sized matrix is calculated by reducing the problem to the calculation of the determinants of n matrices ofn-1 x n-1 size.
 
