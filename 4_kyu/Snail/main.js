@@ -7,9 +7,7 @@ snail = function (array) {
   temporarySnail = [];
   return snail;
 }
-
-
-function clockWise(array) {
+let clockWise = function (array) {
   let arr;
   for (let i = 0; i < array.length; i++) {
     if (i == 0)
@@ -29,7 +27,7 @@ function clockWise(array) {
     return;
   clockWise(getSnail(array));
 }
-function getSnail(array) {
+let getSnail = function (array) {
   let innerSnail = [];
 
   for (let i = 1; i < array.length - 1; i++) {
