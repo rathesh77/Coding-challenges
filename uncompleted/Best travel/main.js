@@ -1,36 +1,61 @@
+
 function chooseBestSum(t, k, ls) {
+    // t somme maximum des distances, >= 0
+    // k nombre de villes maximum >=0
+    // ls tableau des distances 
 
-    var combinaisons = []
-    var pos = 0
-    var count = 0
-    console.log(t)
-    console.log(k)
-    console.log(ls)
-    console.log('-----------------------------')
+    if ( ls.length == 1 && ls[0] < t)
+        return null;
 
-    for ( var i = 0 ; i <ls.length;i++){
+    let sum =0;
+    let combinaisons = []
+    var count = 1;
+    for ( var i = 0 ; i < ls.length-2;i++)
+    {
+        sum+= ls[i]
+    /*    sum += ls[i]
+        console.log(ls[i])
 
-        var sum = ls[i]
-        for ( var j = 0 ; j < ls.length;j++)
+        for ( var j = i+1 ; j < ls.length;j++)
         {
-            if ( i == j)
-            continue
-            if ( (count+1) % k == 0 )
-            {
-                combinaisons.push(sum)
-                sum = ls[i]
-                count = 0
-                continue
-            }
-            sum += ls[j]
-
-            count++
+            sum+= ls[j]
+            combinaisons.push(sum)
+            console.log(ls[j])
+            sum-= ls[j]
         }
+//        if ( i >0)
+        sum = ls[i-1]
+
+        */
+       for ( var j = i+1 ; j < ls.length;j++)
+       {
+           
+           sum+= ls[j]
+           let temp = sum
+            let count = 2
+           for ( var k = j+1 ; k < ls.length;k++)
+           {
+               count++
+               sum+= ls[k]
+               combinaisons.push(sum)
+               console.log(sum)
+            if ( count == k){
+               sum=temp
+               count = 0
+            }
+           }
+           sum  = ls[i]     
+       }
+       sum = 0
     }
-    var bestSum = combinaisons.filter(element=>element<=t).sort(function(a,b){return b-a})
-    if ( bestSum == undefined)
-    return null
-    return(bestSum)
+    console.log(combinaisons)
+    combinaisons = combinaisons.filter((num)=> num <= t).sort()
+    console.log(combinaisons)
+    return parseInt(combinaisons.slice(-1))
 }
 
-console.log(chooseBestSum(163,3,[50, 55, 56, 57, 58])) // => 228
+
+console.log(chooseBestSum(163, 3, [50, 55, 56, 57, 58]), "should equal to "  +163)
+console.log(chooseBestSum(163, 3,  [50]), "should equal to "  +null)    
+console.log(chooseBestSum(230, 3, [91, 74, 73, 85, 73, 81, 87]),"should equal to "  + 228)
+console.log(chooseBestSum(331, 4, [91, 74, 73, 85, 73, 81, 87]),"should equal to "  + 331)
