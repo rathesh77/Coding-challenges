@@ -1,44 +1,43 @@
+let sum = 0
+let value =0
+
 function chooseBestSum(t, k, ls) {
     if (ls.length < k)
         return null
-    const maxVal = Math.max(...ls)
+    let maxVal = Math.max(...ls)
     if (k == 1 && maxVal <= t) {
         return maxVal
     }
-    let sum = 0
-    let maxSum = null
     for (let i = 0; i < ls.length; i++) {
         if (ls[i] == t && k == 1)
             return t
         sum += ls[i]
-        const temp = maxSum
-        maxSum = combination(sum, t, k - 1, ls.slice(i + 1, ls.length), null)
-        if (!maxSum || maxSum < temp || maxSum > t)
-            maxSum = temp
+        combination(t, k - 1, ls.slice(i + 1, ls.length))
         sum = 0
     }
-    return maxSum
+    let temp = value
+    value = 0
+    return temp? temp: null
 }
-function combination(sum, t, k, ls, currentBestValue) {
+function combination(t, k, ls) {
     if (k == 1) {
-        let bestValueToPick = currentBestValue
         for (let i = 0; i < ls.length; i++) {
-            let result = sum + ls[i]
-            if (result <= t && result > bestValueToPick) {
-                bestValueToPick = result
+            let result = sum + ls[i] 
+            if (  result <= t && result > value )
+            {
+                    value = result
             }
         }
-        return bestValueToPick
+        return 0
     }
-    let currentBestValueCopy = currentBestValue
     for (let i = 0; i < ls.length; i++) {
         sum += ls[i]
-        let resultat = combination(sum, t, k - 1, ls.slice(i + 1, ls.length), currentBestValueCopy)
-        sum -= ls[i]
-        currentBestValueCopy = resultat
+        if (!combination(t, k - 1, ls.slice(i + 1, ls.length))) {
+            sum -= ls[i]
+        }
     }
-    return currentBestValueCopy
 }
+
 
 let ts = [50, 55, 56, 57, 58]
 console.log(chooseBestSum(163, 3, ts), 163)
@@ -74,6 +73,3 @@ console.log(chooseBestSum(2300, 5, xs), null)
 console.log(chooseBestSum(2332, 3, xs), 2326)
 console.log(chooseBestSum(23331, 8, xs), 10789)
 console.log(chooseBestSum(331, 2, xs), null)
-
-
-
