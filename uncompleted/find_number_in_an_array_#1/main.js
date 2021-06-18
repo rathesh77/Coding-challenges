@@ -1,42 +1,70 @@
+
 function duplicateOrUnique(arr) {
   //coding and coding..
+  const n = arr.length
 
-  arr = arr.sort((a, b) => a - b)
-  //console.log(arr)
-  //console.log(Array.from(new Set(arr)))
-  return isDuplicate(arr) ? findDuplicate(arr) : findUnique(arr);
-}
-function isDuplicate(arr) {
-  return Array.from(new Set(arr)).length == arr.length - 1
-}
+  quicksort(arr, 0, arr.length-1)
+  console.log(arr)
 
-function findDuplicate(arr) {
-  var seen = [];
-  console.log('Duplicate')
-
-  for (var i = 0; i < arr.length; i++) {
-    if (seen[arr[i]])
+  if (arr[n-1]  == n-1 ) {
+    // un seul element dupliqué !!!
+    for ( let i = 1 ; i < arr.length-1;i++) {
+      if ( arr[i] == arr[i+1] || arr[i] == arr[i-1]) {
+        return arr[i]
+      }
+    }
+  }
+  for ( let i = 1 ; i < arr.length-1;i++) {
+    if ( arr[i] != arr[i+1] && arr[i] != arr[i-1]) {
+      console.log(arr[i-1], arr[i],arr[i+1])
       return arr[i]
-    else
-      seen[arr[i]] = true
+    }
   }
-}
-function findUnique(arr) {
-  console.log('Unique')
-  var setted = Array.from(new Set(arr))
-  var start = 0;
-  var end = setted.length-1
-  for (var i = 0; i < setted.length; i++) {
-    var index = arr.indexOf(setted[i])
-    if (index != -1 && arr.indexOf(setted[i], index + 1) == -1)
-      return setted[i]
-  }
+  return arr[n-1]
 
 }
 
+function quicksort(array, begin, end) {
+  if (begin < end) {
+      const j = partition(array, begin, end)
+      quicksort(array, begin, j - 1)
+      quicksort(array, j + 1, end)
 
-console.log(duplicateOrUnique([1, 2, 3, 1, 2, 3, 4]))
-/*
-if ( sorted(Set from index I to end == original Array from I to end) )
-dichotomie*/
+  }
+}
 
+function partition(array, begin, end) {
+  const pivotIndex = parseInt((begin + end) / 2)
+  let pivot = array[pivotIndex]
+
+  let i = begin
+  let j = end
+
+  swap(array, begin, pivotIndex)
+
+  while (i < j) {
+      while (array[i] <= pivot) {
+          i++
+      }
+      while (array[j] > pivot) {
+          j--
+      }
+      if (i < j) {
+          swap(array, i, j)
+      }
+  }
+  swap(array, begin, j)
+  return j
+}
+function swap(array, i, j) {
+  const temp = array[i]
+  array[i] = array[j]
+  array[j] = temp
+}
+
+console.log(duplicateOrUnique([1, 2, 3, 1, 2, 3, 4]), 4)
+//console.log(duplicateOrUnique([9, 8, 7, 1, 2, 3, 9, 7, 1, 2, 3, 4, 4, 5, 5, 6, 6]), 8)
+//console.log(duplicateOrUnique([1, 2, 3, 6, 5, 4, 1]), 1)
+
+
+// 1 +2 +3 +4 = 10 => n(n+1) / 2 

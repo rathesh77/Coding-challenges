@@ -1,20 +1,15 @@
-var valeurs = [];
+let valeurs = [];
 
 function determinant(m) {
     console.table(m);
-
     if (m[0].length == 1)
         return parseInt(m[0])
-
     if (m[0].length == 2)
         return squaredMatrixDeterminant(m,1);
 
     iterateMatrix(m);
-
-    var det = valeurs.reduce((acc, currentVal) => acc + currentVal);
-
+    let det = valeurs.reduce((acc, currentVal) => acc + currentVal);
     valeurs = [];
-
     return det;
 };
 
@@ -31,7 +26,7 @@ function iterateMatrix(m) {
 }
 function addValues(start,end,m,val)
 {
-    for (var i = start; i <end; i++) {
+    for (let i = start; i <end; i++) {
         if (i % 2 == 0)
             valeurs.push(squaredMatrixDeterminant(getMatrix(1, i, m), val * m[0][i]))
         else
@@ -39,10 +34,10 @@ function addValues(start,end,m,val)
     }
 }
 function getMatrix(i, ignore, m) {
-    var matrix = [];
-    for (var k = i; k < m.length; k++) {
+    let matrix = [];
+    for (let k = i; k < m.length; k++) {
         matrix.push([]);
-        for (var l = 0; l < m[k].length; l++) {
+        for (let l = 0; l < m[k].length; l++) {
             if (l != ignore)
                 matrix[matrix.length - 1].push(m[k][l]);
         }
@@ -55,11 +50,11 @@ function getRandomNumberBetween(min, max) {
 
 const currentTime = new Date().getTime();
 
-var matrice = []
+let matrice = []
 const dimension = getRandomNumberBetween(2, 6)
-for (var i = 0; i < dimension; i++) {
+for (let i = 0; i < dimension; i++) {
     matrice.push([]);
-    for (var j = 0; j < dimension; j++)
+    for (let j = 0; j < dimension; j++)
         matrice[matrice.length - 1].push(getRandomNumberBetween(-100, 100));
 }
 

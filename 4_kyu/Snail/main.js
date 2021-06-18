@@ -1,8 +1,8 @@
 snail = function (array) {
-  return clockWise(array,[]);
+  return clockWise(array, []);
 }
 
-let clockWise = function (array,temporarySnail) {
+let clockWise = function (array, temporarySnail) {
   let arr;
   for (let i = 0; i < array.length; i++) {
     if (i == 0)
@@ -20,7 +20,7 @@ let clockWise = function (array,temporarySnail) {
 
   if (array.length < 3)
     return temporarySnail;
-  return clockWise(getSnail(array),temporarySnail);
+  return clockWise(getSnail(array), temporarySnail);
 }
 
 let getSnail = function (array) {
@@ -33,7 +33,7 @@ let getSnail = function (array) {
   return innerSnail;
 }
 
-const input = [[1, 2, 3, 4, 5, 6], [4, 5, 6, 2, 0, 7], [2, 1, 8, 7, 9, 8], [4, 5, 6, 7, 1, 9], [2, 3, 4, 5, 8, 9], [9, 7, 1, 4, 3, 6]];
+const input = [[1, 2, 3, 4, 5, 6], [20, 21, 22, 23, 24, 7], [19, 32, 33, 34, 25, 8], [18, 31, 36, 36, 26, 9], [17, 30, 29, 28, 27, 10], [16, 15, 14, 13, 12, 11]];
 console.log("input: ");
 input.forEach((element) => { console.log(...element); })
 console.log("\nOutput: " + snail(input));
