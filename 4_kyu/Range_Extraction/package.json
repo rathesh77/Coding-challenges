@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.2"
+  },
+  "name": "range_extraction",
+  "version": "1.0.0",
+  "main": "rangeExtraction.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Rathesh CHARLES MAHENDRAN",
+  "license": "ISC",
+  "description": ""
+}
