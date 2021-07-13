@@ -10,6 +10,4 @@ function duplicateOrUnique(arr) {
   return sum > (expr1) / 2 ? sum - ((expr1) / 2) : (expr2 * (expr2 + 1)) - sum
 }
 
-console.log(duplicateOrUnique([1, 2, 3, 1, 2, 3, 4]), 4)
-console.log(duplicateOrUnique([9, 8, 7, 1, 2, 3, 9, 7, 1, 2, 3, 4, 4, 5, 5, 6, 6]), 8)
-console.log(duplicateOrUnique([1, 2, 3, 6, 5, 4, 1]), 1)
+module.exports = { duplicateOrUnique }
