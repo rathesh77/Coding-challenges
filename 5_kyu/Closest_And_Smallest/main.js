@@ -1,7 +1,7 @@
 module.exports = function closest(strng) {
     if (!strng.length)
         return []
-    let ascOrderedWeights = strng
+    const ascOrderedWeights = strng
         .split(' ')
         .map((a, i) => ({
             index: i,
@@ -80,7 +80,7 @@ module.exports = function closest(strng) {
 
 function swapPairs(min) {
     if (min['subArrays'][0][1] > min['subArrays'][1][1]) {
-        let temp = min['subArrays'][0]
+        const temp = min['subArrays'][0]
         min['subArrays'][0] = min['subArrays'][1]
         min['subArrays'][1] = temp
     }
