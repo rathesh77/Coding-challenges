@@ -79,11 +79,6 @@ module.exports = function closest(strng) {
 }
 
 function swapPairs(min) {
-    if (min['subArrays'][0][0] != min['subArrays'][1][0] && min['subArrays'][0][0] > min['subArrays'][1][0]) {
-        let temp = min['subArrays'][0]
-        min['subArrays'][0] = min['subArrays'][1]
-        min['subArrays'][1] = temp
-    }
     if (min['subArrays'][0][1] > min['subArrays'][1][1]) {
         let temp = min['subArrays'][0]
         min['subArrays'][0] = min['subArrays'][1]
