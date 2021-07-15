@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.2"
+  },
+  "name": "closest_and_smallest",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Rathesh CHARLES MAHENDRAN",
+  "license": "ISC",
+  "description": ""
+}
