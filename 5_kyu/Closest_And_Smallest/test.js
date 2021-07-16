@@ -38,6 +38,7 @@ describe("Basic tests", function () {
 })
 
 describe("Random tests", function () {
+    it("closest", function () {
 
     function randint(a, b) {
         return Math.floor(Math.random() * (b - a + 1) + a);
@@ -89,12 +90,11 @@ describe("Random tests", function () {
         var i = 0;
         while (i < 200) {
             var r = doEx();
-
+              // console.log(closest(r), closest89(r))
             testing(closest(r), closest89(r));
             i++;
         }
     }
-    it("closest", function () {
-        tests_code();
-    })
+    tests_code()
+})
 })

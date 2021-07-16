@@ -37,17 +37,13 @@ module.exports = function closest(strng) {
                 const temp = firstNumber
                 firstNumber = secondNumber
                 secondNumber = temp
-                firstNumberWeight = firstNumber.weight
-                secondNumberWeight = secondNumber.weight
-                firstNumberIndex = firstNumber.index
-                secondNumberIndex = secondNumber.index
+
             }
         } else if (secondNumberIndex < firstNumberIndex) {
             const temp = firstNumber
             firstNumber = secondNumber
             secondNumber = temp
-            firstNumberWeight = firstNumber.weight
-            secondNumberWeight = secondNumber.weight
+
             firstNumberIndex = firstNumber.index
             secondNumberIndex = secondNumber.index
         }
@@ -62,12 +58,7 @@ module.exports = function closest(strng) {
                 ]
             }
         } else if (weightsDifference == min.weightsDifferences && firstNumberWeight <= min['subArrays'][0][0]) {
-
             if (firstNumber.index < secondNumber.index && firstNumber.index <= min['subArrays'][0][1] && secondNumber.index < min['subArrays'][1][1]) {
-                min['subArrays'][0] = [secondNumberWeight, secondNumberIndex, parseInt(secondNumber.value)]
-                min['subArrays'][1] = [firstNumberWeight, firstNumberIndex, parseInt(firstNumber.value)]
-                swapPairs(min)
-            } else if (secondNumber.index <= min['subArrays'][1][1] && firstNumber.index < min['subArrays'][0][1]) {
                 min['subArrays'][0] = [secondNumberWeight, secondNumberIndex, parseInt(secondNumber.value)]
                 min['subArrays'][1] = [firstNumberWeight, firstNumberIndex, parseInt(firstNumber.value)]
                 swapPairs(min)
