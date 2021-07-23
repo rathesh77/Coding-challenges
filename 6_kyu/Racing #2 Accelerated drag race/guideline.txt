@@ -1,0 +1,27 @@
+This is a harder version of Racing #1: Simplified Drag Race. If you're having trouble, try that one first.
+
+If you're looking for another racing challenge, try Racing #3: Emergency Stop.
+
+Description
+Back to Anna and Bob. They are at it again with their drag racing. Anna worked on her reaction time, and Bob asked a friend over to tweak his engine some more. Let's see the result of their efforts!
+
+In this kata, you will again simulate a drag race between Anna and Bob and determine the winner. You will do this by implementing the function dragRace. This time, the cars have to accelerate until they reach their top speed.
+
+Input
+You are given the length of the track in meters (len). Also, you are given the two competing cars (anna and bob).
+
+The cars are Car objects, with the following properties.
+
+reactionTime -> the reaction time of its driver in s
+acceleration -> the acceleration of the car in m/s2
+topSpeed     -> the top speed of the car in m/s
+The reaction time indicates how long it takes before the driver starts to drive after the start of the race. For example if Anna has a reaction time of 1s, and Bob has a reaction time of 2s, Bob starts driving one second later than Anna.
+
+The acceleration indicates how fast the cars increase their speed. An acceleration of 10m/s2 means that the car will drive 10m/s faster every second. For example when acceleration is 10m/s2, then the speed is 1m/s after 0.1s. Check out the equations of motion for more information.
+
+The top speed is the maximum speed of the car. The car will not accelerate beyond this point.
+
+Output
+If there is no winner, return the string It's a draw.
+
+If there is a winner, return the string [name] is the winner.
