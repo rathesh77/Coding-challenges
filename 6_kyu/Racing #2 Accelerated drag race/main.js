@@ -7,7 +7,7 @@ class Car {
 }
 
 // solution 1
-function dragRace(len, anna, bob) {
+let dragRace = function (len, anna, bob) {
     const annaPositionWhenTopSpeedReached = 0.5 * anna.topSpeed * (anna.topSpeed / anna.acceleration)
     const bobPositionWhenTopSpeedReached = 0.5 * bob.topSpeed * (bob.topSpeed / bob.acceleration)
 
@@ -22,7 +22,7 @@ function dragRace(len, anna, bob) {
     return 'Bob is the winner'
 }
 
-function getTotalTime(driver, len, positionWhenTopSpeedReached) {
+let getTotalTime = function (driver, len, positionWhenTopSpeedReached) {
     if (positionWhenTopSpeedReached > len) {
         const velocityOnRaceEnd = Math.sqrt(2 * driver.acceleration * len)
         return (len / (0.5 * velocityOnRaceEnd)) + driver.reactionTime
@@ -34,7 +34,7 @@ function getTotalTime(driver, len, positionWhenTopSpeedReached) {
 }
 
 // solution 2 (less readable)
-function dragRace(len, anna, bob) {
+dragRace = function (len, anna, bob) {
     const annaPositionWhenTopSpeedReached = 0.5 * anna.topSpeed * (anna.topSpeed / anna.acceleration)
     const bobPositionWhenTopSpeedReached = 0.5 * bob.topSpeed * (bob.topSpeed / bob.acceleration)
 
@@ -44,4 +44,6 @@ function dragRace(len, anna, bob) {
     return annaTotalTime == bobTotalTime ? 'It\'s a draw' : annaTotalTime < bobTotalTime ? 'Anna is the winner' : 'Bob is the winner'
 }
 
-const getTotalTime = (driver, len, positionWhenTopSpeedReached) => positionWhenTopSpeedReached > len ? (len / (0.5 * Math.sqrt(2 * driver.acceleration * len))) + driver.reactionTime : ((positionWhenTopSpeedReached) / (0.5 * Math.sqrt(2 * driver.acceleration * positionWhenTopSpeedReached))) + (len - positionWhenTopSpeedReached) / driver.topSpeed + driver.reactionTime
+getTotalTime = (driver, len, positionWhenTopSpeedReached) => positionWhenTopSpeedReached > len ? (len / (0.5 * Math.sqrt(2 * driver.acceleration * len))) + driver.reactionTime : ((positionWhenTopSpeedReached) / (0.5 * Math.sqrt(2 * driver.acceleration * positionWhenTopSpeedReached))) + (len - positionWhenTopSpeedReached) / driver.topSpeed + driver.reactionTime
+
+module.exports = dragRace
