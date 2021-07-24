@@ -1,0 +1,9 @@
+Sum two integers, what would be easier? And what about the really big summands? Create your function, that will be able to take two or more integers as arguments and return their sum.
+
+Result must be a string
+1-digit to 500-digit integers
+Only integers greater than or equal to zero
+No exponent notation
+Variable number of arguments (omitted arguments = zero result)
+Big integers will be represented as strings
+Leading zeros are possible and must be taken in account
