@@ -8,11 +8,15 @@ Morse.invertBits = function (num) {
 }
 
 Morse.encode = function (message) {
-    const signedIntegers = message.split('').reduce((acc, val, i, array) => {
-        const binary = Morse.alpha[val >= 'a' && val <= 'z' ? val.toUpperCase() : val]
-        return binary == '0' ? acc + '0'.repeat(7) : acc + binary + (array[i + 1] != ' ' ? '000' : '')
-    }, '')
-    return (signedIntegers + '0'.repeat(32 - signedIntegers.length % 32)).match(/[0-1]{32}/g).reduce((acc, val) => acc.concat([-((~parseInt(val.substring(0, 32), 2)) + 1)]), []);
+    const signedIntegers = message
+        .split('')
+        .reduce((acc, val, i, array) => {
+            const binary = Morse.alpha[val >= 'a' && val <= 'z' ? val.toUpperCase() : val]
+            return binary == '0' ? acc + '0'.repeat(7) : acc + binary + (array[i + 1] != ' ' ? '000' : '')
+        }, '')
+    return (signedIntegers + '0'.repeat(32 - signedIntegers.length % 32))
+        .match(/[0-1]{32}/g)
+        .reduce((acc, val) => acc.concat([-((~parseInt(val.substring(0, 32), 2)) + 1)]), []);
 };
 
 Morse.decode = integerArray =>
@@ -87,6 +91,5 @@ Morse.beta = {};
 for (const entry of Object.entries(Morse.alpha))
     Morse.beta[entry[1]] = entry[0]
 
-
-    
 console.log(Morse.decode(Morse.encode('ERPZ80ZIVH $@SIWOTWMVB !"SW7KU6A6SF')))
+console.log(Morse.decode(Morse.encode('julien TES LE PLUS GROS CHIEN')))
