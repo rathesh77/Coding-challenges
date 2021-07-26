@@ -1,0 +1,14 @@
+{
+  "name": "morse_encoding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Rathesh CHARLES MAHENDRAN",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^9.0.3"
+  }
+}
