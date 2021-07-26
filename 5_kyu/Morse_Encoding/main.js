@@ -46,11 +46,11 @@ Morse.encode = function (message) {
     return signedIntegers
 };
 
-Morse.decode = function (integersignedIntegersay) {
+Morse.decode = function (integerArray) {
     let chars = ''
     let totalBinary = ''
-    for (let i = 0; i < integersignedIntegersay.length; i++) {
-        let bits32 = this.invertBits((-integersignedIntegersay[i]) - 1)
+    for (let i = 0; i < integerArray.length; i++) {
+        let bits32 = this.invertBits((-integerArray[i]) - 1)
         let bits32DecimalToBinary = bits32
         totalBinary += bits32DecimalToBinary
     }
