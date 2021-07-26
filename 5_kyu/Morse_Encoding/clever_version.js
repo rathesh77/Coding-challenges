@@ -91,6 +91,15 @@ Morse.beta = {};
 for (const entry of Object.entries(Morse.alpha))
     Morse.beta[entry[1]] = entry[0]
 
-console.log(Morse.decode(Morse.encode('ERPZ80ZIVH $@SIWOTWMVB !"SW7KU6A6SF')))
+console.log("SAMPLE TEST:\n",Morse.decode(Morse.encode(`L'operateur binaire NON (~) prend l'oppose de chaque bit de son operande et fournit la valeur ainsi obtenue. A l'instar des autres operateurs binaires, il convertit son operande en un entier signe sur 32 bits.`)))
+console.log("----------------------------------------")
+console.log('\nCUSTOM TEST:\n')
+const input = process.argv.slice(2).join(' ')
+const encoded = Morse.encode(input)
+const decoded = Morse.decode(encoded)
+console.log(`Encoding ${input.toUpperCase()} : ${encoded}\n`)
+console.log(`Decoding ${encoded} : ${decoded}`)
+
+//console.log(Morse.decode(Morse.encode(process.argv.slice(2).join(' '))))
 
 module.exports = {Morse}
