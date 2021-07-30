@@ -10,17 +10,17 @@ var countChange = function (money, coins) {
 }
 
 const countChange2 = (money, coins) => findCombinations(money, 0, coins, 0)
-const findCombinations = (money, sum, coins, currentCoinIndex) => {
+const findCombinations = (money, change, coins, currentCoinIndex) => {
     const currentCoin = coins[currentCoinIndex]
     let combinations = 0
-    const temp = sum
-    while (sum + currentCoin < money) {
-        sum += currentCoin
-        combinations += findCombinations(money, sum, coins, currentCoinIndex + 1)
+    const temp = change
+    while (change + currentCoin < money) {
+        change += currentCoin
+        combinations += findCombinations(money, change, coins, currentCoinIndex + 1)
     }
     if (currentCoinIndex < coins.length - 1)
         combinations += findCombinations(money, temp, coins, currentCoinIndex + 1)
-    return sum + currentCoin === money ? combinations + 1 : combinations
+    return change + currentCoin === money ? combinations + 1 : combinations
 }
 
 let time = Date.now()
