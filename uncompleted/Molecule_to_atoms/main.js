@@ -1,30 +1,12 @@
 function parseMolecule(formula) {
     // do your science here
-    let parse = {}
-
-    let i = 0, j = formula.length - 1
-    let str = ''
-    while (formula[i] != '{' && formula[i] != '(' && formula[i] != '[' && formula[i] != '}' && formula[i] != ')' && formula[i] != ']' && i <= formula.length - 1) {
-        str += formula[i]
-        i++
-    }
-
-    parse = parseWithoutBrackets(str, {}, 1)
-    if (i == formula.length) {
-        return parse
-    }
-    let num = ''
-    while (formula[j] != '}' && formula[j] != ')' && formula[j] != ']' && j > 0) {
-        num = formula[j] + num
-        j--
-    }
-    parse = rec(formula.substring(i + 1, j), parse, parseInt(num))
 
 
-    return parse
+
+    return rec(formula, {}, 1, 1, false)
 }
 
-function rec(formula, parse, mult) {
+function rec(formula, parse, mult, globalMult) {
 
     let i = 0, j = formula.length - 1
     let str = ''
@@ -32,8 +14,8 @@ function rec(formula, parse, mult) {
         str += formula[i]
         i++
     }
-
-    parse = parseWithoutBrackets(str, { ...parse }, mult)
+    console.log('folj', formula)
+    parse = parseWithoutBrackets(str, { ...parse }, mult, globalMult, formula.indexOf('(') == -1 && formula.indexOf('[') == -1 ? true : false)
     for (const key of Object.keys(parse)) {
         //parse[key] *= mult
     }
@@ -45,31 +27,56 @@ function rec(formula, parse, mult) {
         num = formula[j] + num
         j--
     }
-    parse = rec(formula.substring(i + 1, j), parse, parseInt(num))
+    const subFormula = formula.substring(i + 1, j)
+
+    
+    if (formula[j] == ']') {
+        console.log('t',num)
+        parse = rec(subFormula, parse, mult, parseInt(num)* globalMult)
+    }
+    else
+        parse = rec(subFormula, parse, parseInt(num),globalMult)
 
 
     return parse
 }
 
-function parseWithoutBrackets(formula, parse, mult) {
-    let letters = formula.match(/[A-Z]{1,1}[a-z]*/g)
-    let numbers = formula.match(/[0-9]+/g)
-    console.log(formula,letters, numbers)
-    if (numbers == null) {
-        for (let i = 0; i < letters.length; i++) {
-            if ( parse[letters[i]] == null)
-            parse[letters[i]] = 1
-            parse[letters[i]] *=  mult
-        }
-    }
-    else {
-        for (let i = 0; i < letters.length; i++) {
-            console.log(letters[i],parse[letters[i]])
-            parse[letters[i]] = numbers[i] == null ? 1 * mult : +numbers[i] * mult
-        }
-    }
-    //console.log(formula,parse)
+function parseWithoutBrackets(formula, parse, mult, globalMult, applyGlobalMult) {
+    let i = 0
+    let str = ''
+    let num = ''
+    console.log(formula, parse, globalMult, applyGlobalMult)
 
+    while (i != formula.length) {
+
+        str += '' + formula[i]
+        //console.log(formula[i], mult, globalMult)
+
+        i++
+
+        while (formula[i] >= 'a' && formula[i] <= 'z') {
+            str += '' + formula[i]
+            i++
+        }
+        while (formula[i] >= '0' && formula[i] <= '9') {
+            num += '' + formula[i]
+            i++
+        }
+        if (num.length == 0)
+            num = 1
+
+        if (parse[str] != null) {
+            console.log('parse',parse[str])
+            parse[str] = (((+num) * mult) + parse[str])*(applyGlobalMult == true ? globalMult : 1)
+        }
+        else
+            parse[str] = (+num * mult)**(applyGlobalMult == true ? globalMult : 1)
+      
+
+        //i++
+        num = ''
+        str = ''
+    }
     return parse
 }
 
@@ -79,5 +86,5 @@ console.log(parseMolecule(water), `should equal ${JSON.stringify({ H: 2, O: 1 },
 const magnesiumHydroxide = 'Mg(OH)2';
 console.log(parseMolecule(magnesiumHydroxide), `should equal ${JSON.stringify({ Mg: 1, O: 2, H: 2 }, null, 2)}`)
 
-const fremySalt = 'K4[ON(S3O)2]2';
+const fremySalt = 'K4[ON(SO3)2]2';
 console.log(parseMolecule(fremySalt), `should equal ${JSON.stringify({ K: 4, O: 14, N: 2, S: 4 }, null, 2)}`)
