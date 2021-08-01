@@ -1,56 +1,73 @@
 function parseMolecule(formula) {
-    // do your science here
 
-
-
-    return rec(formula, {}, 1, 1, false)
+    return getSubFormula(formula, {}, [])
 }
 
-function rec(formula, parse, mult, globalMult) {
+function getSubFormula(formula, parse) {
+    console.log('brut formula:', formula)
 
-    let i = 0, j = formula.length - 1
-    let str = ''
-    while (formula[i] != '{' && formula[i] != '(' && formula[i] != '[' && formula[i] != '}' && formula[i] != ')' && formula[i] != ']' && i <= formula.length - 1) {
-        str += formula[i]
+    let i = 0
+    let j = formula.length
+    let subFormula = ''
+    let beginBracketIndex = 0
+    let endBracketIndex = 0
+
+    while (i <= formula.length - 1 && formula[i] != '[' && formula[i] != '(' && formula[i] != '{') {
+        subFormula += formula[i]
         i++
     }
-    console.log('folj', formula)
-    parse = parseWithoutBrackets(str, { ...parse }, mult, globalMult, formula.indexOf('(') == -1 && formula.indexOf('[') == -1 ? true : false)
-    for (const key of Object.keys(parse)) {
-        //parse[key] *= mult
-    }
+    beginBracketIndex = i
     if (i == formula.length) {
+        parseRawFormula(subFormula, parse)
         return parse
     }
-    let num = ''
-    while (formula[j] != '}' && formula[j] != ')' && formula[j] != ']' && j > 0) {
-        num = formula[j] + num
-        j--
-    }
-    const subFormula = formula.substring(i + 1, j)
+    subFormula += formula[i]
 
-    
-    if (formula[j] == ']') {
-        console.log('t',num)
-        parse = rec(subFormula, parse, mult, parseInt(num)* globalMult)
+    i++
+    let cptBrackets = 1
+
+    while (i <= formula.length - 1 && cptBrackets != 0) {
+        if (formula[i] == '[' || formula[i] == '(' || formula[i] == '{')
+            cptBrackets++
+        if (formula[i] == ']' || formula[i] == ')' || formula[i] == '}')
+            cptBrackets--
+
+        subFormula += formula[i]
+        i++
     }
-    else
-        parse = rec(subFormula, parse, parseInt(num),globalMult)
+    endBracketIndex = i
+    if (beginBracketIndex != 0) {
+        // left part
+        //console.log('left:', subFormula.substring(0, beginBracketIndex))
+        getSubFormula(subFormula.substring(0, beginBracketIndex), parse, 1)
+    }
+
+    getSubFormula(subFormula.substring(beginBracketIndex + 1, endBracketIndex - 1), parse, 1)
+    //console.log('middle:', subFormula.substring(beginBracketIndex + 1, endBracketIndex - 1))
+
+    let rightFormula = formula.substring(endBracketIndex)
+    const mult = getMult(rightFormula)
+    if (mult.begin != -1) {
+        // right part
+        getSubFormula(rightFormula.substring(mult['begin']), parse, 1)
+        //console.log('right:', rightFormula.substring(mult['begin']))
+    }
 
 
     return parse
 }
 
-function parseWithoutBrackets(formula, parse, mult, globalMult, applyGlobalMult) {
+function parseRawFormula(formula, parse) {
+
+    //let parse = {}
     let i = 0
     let str = ''
     let num = ''
-    console.log(formula, parse, globalMult, applyGlobalMult)
+    //console.log(formula, parse)
 
     while (i != formula.length) {
 
         str += '' + formula[i]
-        //console.log(formula[i], mult, globalMult)
 
         i++
 
@@ -64,27 +81,63 @@ function parseWithoutBrackets(formula, parse, mult, globalMult, applyGlobalMult)
         }
         if (num.length == 0)
             num = 1
+        /*
+                let temp = 0
+               
+                if ( parse[str] != null) {
+                    temp = parse[str]
+                }
+                parse[str] = +num
+                //console.log(parse[str], str, temp)
+                for (let i = 0; i < mults.length; i++) {
+        
+                    parse[str] = (parse[str] * mults[i]) + temp
+                    //console.log(parse[str], str)
+        
+                    temp = 0
+                }*/
 
-        if (parse[str] != null) {
-            console.log('parse',parse[str])
-            parse[str] = (((+num) * mult) + parse[str])*(applyGlobalMult == true ? globalMult : 1)
-        }
-        else
-            parse[str] = (+num * mult)**(applyGlobalMult == true ? globalMult : 1)
-      
 
-        //i++
+
+        parse[str] = +num * 1
+
+
         num = ''
         str = ''
     }
     return parse
+
 }
+
+function getMult(formula) {
+    let mult = ''
+    let begin = 0
+    for (let i = 0; i < formula.length; i++) {
+        if (!(formula[i] >= '0' && formula[i] <= '9')) {
+            return { mult: mult == '' ? 1 : +mult, begin: i }
+        }
+        mult += formula[i]
+    }
+    return { mult: +mult, begin: -1 }
+
+}
+
+
+
 
 const water = 'H2O';
 console.log(parseMolecule(water), `should equal ${JSON.stringify({ H: 2, O: 1 }, null, 2)}`)
-
+const fremySalt = 'K4[ON(SO3)2]2';
+console.log(parseMolecule(fremySalt), `should equal ${JSON.stringify({ K: 4, O: 14, N: 2, S: 4 }, null, 2)}`)
+const test = '(C5H5)Fe(CO)2';
+console.log(parseMolecule(test), `should equal ${JSON.stringify({ 'C': 8, 'H': 8, 'Fe': 1, 'O': 2 }, null, 2)}`)
+/*
 const magnesiumHydroxide = 'Mg(OH)2';
 console.log(parseMolecule(magnesiumHydroxide), `should equal ${JSON.stringify({ Mg: 1, O: 2, H: 2 }, null, 2)}`)
 
-const fremySalt = 'K4[ON(SO3)2]2';
-console.log(parseMolecule(fremySalt), `should equal ${JSON.stringify({ K: 4, O: 14, N: 2, S: 4 }, null, 2)}`)
+
+const weird  = 'As2{Be4C5[BCo3(CO2)3]2}4Cu5';
+console.log(parseMolecule(weird), `should equal ${JSON.stringify({ K: 4, O: 14, N: 2, S: 4 }, null, 2)}`)
+
+
+*/
