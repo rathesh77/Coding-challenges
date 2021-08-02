@@ -54,10 +54,10 @@ const getSubFormula = (formula, parse, tree, init) => {
     if (init == null)
         return
 
-    return parseJSON(formula, tree, {})
+    return parseJSON(formula, tree)
 }
 
-const parseJSON = (key, tree, parse) => {
+const parseJSON = (key, tree) => {
     let parses = []
     const index = tree['index']
     const subFormulas = Object.keys(tree)
@@ -70,7 +70,7 @@ const parseJSON = (key, tree, parse) => {
     }
     for (const formula of subFormulas)
         if (formula != 'index')
-            parses.push({ ...parseJSON(formula, tree[formula], parse) })
+            parses.push({ ...parseJSON(formula, tree[formula]) })
 
     const newParse = {}
     for (let i = 0; i < parses.length; i++)
