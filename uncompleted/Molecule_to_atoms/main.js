@@ -117,7 +117,7 @@ function parseRawFormula(formula, parse, mult) {
         if (num.length == 0)
             num = 1
 
-        parse[str] = (+num * mult) + (parse[str] == null ? 0 : 0)
+        parse[str] = (+num * mult) + (parse[str] == null ? 0 :  parse[str])
 
 
         num = ''
