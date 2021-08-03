@@ -129,7 +129,7 @@ const getIndexAfterBraces = formula => {
         }
         index += formula[i]
     }
-    return { index: +index, begin: -1 }
+    return { index: index == '' ? 1 : +index, begin: -1 }
 }
 
 module.exports = parseMolecule
