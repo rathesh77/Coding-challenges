@@ -91,33 +91,16 @@ const parseJSON = (key, tree) => {
 const parseRawFormula = (formula, index) => {
 
     const parse = {}
-    let i = 0
-    let atom = ''
-    let indexAfterBraces = ''
-
-    while (i != formula.length) {
-
-        atom += '' + formula[i]
-        i++
-        while (formula[i] >= 'a' && formula[i] <= 'z') {
-            atom += '' + formula[i]
-            i++
-        }
-        while (formula[i] >= '0' && formula[i] <= '9') {
-            indexAfterBraces += '' + formula[i]
-            i++
-        }
-        if (indexAfterBraces.length == 0)
-            indexAfterBraces = 1
-
+    formula.match(/[A-Z]{1}[a-z]*[0-9]*/g).forEach(molecule => {
+        molecule = molecule.match(/([A-Z]{1}[a-z]*)|[0-9]+/g)
+        const atom = molecule[0]
+        const indexAfterBraces = molecule[1] == null ? 1 : molecule[1] 
         if (parse[atom] == null)
             parse[atom] = (+indexAfterBraces * index)
         else
             parse[atom] = ((+indexAfterBraces * index)) + parse[atom]
-
-        indexAfterBraces = ''
-        atom = ''
-    }
+    })
+    
     return parse
 }
 
