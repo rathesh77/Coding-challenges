@@ -3,22 +3,16 @@ const parseMolecule = formula => getSubFormula(formula, {}, {}, 1)
 const getSubFormula = (formula, parse, tree, init) => {
     let i = 0
     let formulaLen = formula.length
-    let subFormula = ''
-    let beginBracketIndex = 0
-    let endBracketIndex = 0
-
-    while (i <= formulaLen - 1 && formula[i] != '[' && formula[i] != '(' && formula[i] != '{') {
-        subFormula += formula[i]
-        i++
-    }
-    beginBracketIndex = i
-    if (i == formulaLen)
-        return parseRawFormula(subFormula, 1)
-
-    subFormula += formula[i]
-
-    i++
+    let beginBracketIndex = formula.match(/\(|\[|\{/)
     let cptBrackets = 1
+
+    if (beginBracketIndex == null)
+        return parseRawFormula(formula, 1)
+
+    beginBracketIndex = beginBracketIndex.index
+    let subFormula = formula.substring(0, beginBracketIndex + 1)
+
+    i = beginBracketIndex + 1
 
     while (i <= formulaLen - 1 && cptBrackets != 0) {
         if (formula[i] == '[' || formula[i] == '(' || formula[i] == '{')
@@ -29,7 +23,7 @@ const getSubFormula = (formula, parse, tree, init) => {
         subFormula += formula[i]
         i++
     }
-    endBracketIndex = i
+    let endBracketIndex = i
     if (beginBracketIndex != 0) {
         const left = subFormula.substring(0, beginBracketIndex)
         tree[left] = {}
@@ -37,12 +31,11 @@ const getSubFormula = (formula, parse, tree, init) => {
     }
 
     const right = subFormula.substring(beginBracketIndex + 1, endBracketIndex - 1)
-    tree[right] = {}
 
     const remainingFormulas = formula.substring(endBracketIndex)
     const index = getIndexAfterBraces(remainingFormulas)
 
-    tree[right]['index'] = index['index']
+    tree[right] = { index: index['index'] }
     getSubFormula(right, parse, tree[right])
 
     if (index.begin != -1) {
@@ -51,10 +44,7 @@ const getSubFormula = (formula, parse, tree, init) => {
         getSubFormula(remainings, parse, tree[remainings])
     }
 
-    if (init == null)
-        return
-
-    return parseJSON(formula, tree)
+    return init == null ? 0 : parseJSON(formula, tree)
 }
 
 const parseJSON = (key, tree) => {
@@ -62,12 +52,10 @@ const parseJSON = (key, tree) => {
     const index = tree['index']
     const subFormulas = Object.keys(tree)
     const subFormulasLen = subFormulas.length
-    if (subFormulasLen == 0) {
+    if (subFormulasLen == 0)
         return parseRawFormula(key, 1)
-    }
-    else if (subFormulasLen == 1 && index != null) {
+    if (subFormulasLen == 1 && index != null)
         return parseRawFormula(key, index)
-    }
     for (const formula of subFormulas)
         if (formula != 'index')
             parses.push({ ...parseJSON(formula, tree[formula]) })
@@ -94,13 +82,13 @@ const parseRawFormula = (formula, index) => {
     formula.match(/[A-Z]{1}[a-z]*[0-9]*/g).forEach(molecule => {
         molecule = molecule.match(/([A-Z]{1}[a-z]*)|[0-9]+/g)
         const atom = molecule[0]
-        const indexAfterBraces = molecule[1] == null ? 1 : molecule[1] 
+        const indexAfterBraces = molecule[1] == null ? 1 : molecule[1]
         if (parse[atom] == null)
             parse[atom] = (+indexAfterBraces * index)
         else
             parse[atom] = ((+indexAfterBraces * index)) + parse[atom]
     })
-    
+
     return parse
 }
 
