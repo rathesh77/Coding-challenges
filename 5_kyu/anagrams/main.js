@@ -8,10 +8,10 @@ function anagrams(word, words) {
         // eg : word  = 'ba' => ['b','a'] =>  ['a','d'] => 'ab'
         //      words[i] = 'da' => ['d','a'] =>  ['a','d'] => 'ad'
         // 'ab' == 'ad' ? we push word[i] to the final array : we break
-        if (words[i].split('').sort().join('') != word.split('').sort().join('')) 
-        continue;
+        if (words[i].split('').sort().join('') != word.split('').sort().join(''))
+            continue;
         finalArray.push(words[i])
     }
     return finalArray;
 }
-console.log(anagrams('abba',['abab','aabb','abbb','ab','a']))
+console.log(anagrams('abba', ['abab', 'aabb', 'abbb', 'ab', 'a']))
