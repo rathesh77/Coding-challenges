@@ -19,32 +19,22 @@ function sudoku(puzzle) {
 
             if (puzzle[row][col] == 10) {
                 puzzle[row][col] = 0
-                col--
-                if (col < 0) {
-                    row--
-                    col = 8
-                }
-                while (filled[row][col]) {
+                do {
                     col--
                     if (col < 0) {
                         row--
                         col = 8
                     }
-                }
-            } else {
-                col++
-                if (col == 9) {
-                    row++
-                    col = 0
-                }
-            }
-        } else {
-            col++
-            if (col == 9) {
-                row++
-                col = 0
+                } while (filled[row][col])
+                continue
             }
         }
+        col++
+        if (col == 9) {
+            row++
+            col = 0
+        }
+
     }
     return puzzle
 }
