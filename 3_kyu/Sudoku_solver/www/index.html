@@ -111,8 +111,11 @@
             <td><input type="text" class="sudoku_cell" oninput="checkInput(this)" /></td>
         </tr>
     </table>
-    <button type="submit" id="submit_sudoku" onclick="isBoardValid(board)">Submit</button>
-    <button type="submit" id="generate_random_board" onclick="disableButton();board = generateRandomSudokuBoard(); fillBoard(board)">generateRandomSudokuBoard</button>
+    <br>
+    <button type="button" id="submit_sudoku" onclick="isBoardValid()">Submit</button>
+    <button type="button" id="generate_random_board" onclick="board =generateRandomSudokuBoard(); fillBoard()">Generate random board</button>
+    <button type="button" id="view_solution" onclick="showSolution()">View solution</button>
+
     <div id="error">Wrong</div>
 
     <script src="./script/sudoku.js"></script>

@@ -1,36 +1,3 @@
-function generateRandomSudokuBoard() {
-    let puzzle = null
-      while (1) {
-        puzzle = [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]
- 
-        for (let row = 0; row < 9; row++) {
-            for (let col = 0; col < 9; col++) {
-                let shouldFillCell = Math.random()
-                if (shouldFillCell > 0.3) {
-                    puzzle[row][col] = 0
-                } else {
-                    let cellValue = 1
-                    do {
-                        cellValue = Math.floor(Math.random() * 10)
-                    } while (!checkIfCellIsValid(cellValue, row, col, puzzle))
-                    puzzle[row][col] = cellValue
-                }
-            }
-        }
-        try {
-            const newArray = puzzle.map(function (arr) {
-                return arr.slice(0);
-            })
-            sudoku(puzzle)
-            return newArray
-
-        } catch (err) {
-            if (err instanceof RangeError)
-                console.log(err)
-        }
-    }
-    return puzzle
-}
 function sudoku(puzzle) {
     let begin = Date.now()
     const filled = {}
@@ -98,5 +65,3 @@ function checkIfCellIsValid(num, row, col, puzzle) {
 
     return true
 }
-
-//module.exports = sudoku
