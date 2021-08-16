@@ -30,3 +30,8 @@ tr:nth-child(7) {
 #error {
     display: none;
 }
+
+button {
+    padding: 20px;
+    font-size: 1.25rem;
+}
