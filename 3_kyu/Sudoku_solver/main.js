@@ -14,7 +14,7 @@ function sudoku(puzzle) {
     while (row != 9) {
         if (!filled[row][col]) {
             puzzle[row][col]++
-            while (!checkIfCellIsValid(puzzle[row][col], row, col, puzzle) && puzzle[row][col] < 10)
+            while (puzzle[row][col] < 10 && !checkIfCellIsValid(puzzle[row][col], row, col, puzzle))
                 puzzle[row][col]++
 
             if (puzzle[row][col] == 10) {
@@ -54,14 +54,11 @@ function checkIfCellIsValid(num, row, col, puzzle) {
     const nthCol = Math.floor(col / 3)
     const endCol = (nthCol * 3) + 3
 
-    for (let r = nthRow * 3; r < endRow; r++) {
-        for (let c = nthCol * 3; c < endCol; c++) {
-            if (r == row && c == col)
-                continue
-            if (puzzle[r][c] == num)
+    for (let r = nthRow * 3; r < endRow; r++)
+        for (let c = nthCol * 3; c < endCol; c++)
+            if (r != row && c != col && puzzle[r][c] == num)
                 return false
-        }
-    }
+
     return true
 }
 
