@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse cipher</title>
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80%;
+            resize: none;
+
+        }
+
+        .content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #item1,
+        #item2 {
+            flex-basis: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div id="item1">
+            <h2>Decoded message</h2>
+            <textarea type="text" id="message"></textarea>
+            <button type="button" onclick="cipher()">Cipher</button>
+            <button type="button" onclick="decipher()">Decypher</button>
+
+        </div>
+        <div id="item2">
+            <h2>Encoded message</h2>
+            <textarea type="text" id="encoded"></textarea>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+    <script>
+        const messageInput = document.getElementById('message')
+        const encodedInput = document.getElementById('encoded')
+        const cipher = () => { encodedInput.value = Morse.encode(messageInput.value) }
+        const decipher = () => { messageInput.value = Morse.decode(encodedInput.value.split(',').reduce((a, v) => a.concat(v), [])) }
+    </script>
+</body>
+
+</html>

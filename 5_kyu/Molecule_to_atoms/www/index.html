@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Molecule parsing</title>
+  <script
+    src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sons-of-obsidian"></script>
+  <style>
+    html,
+    body {
+      height: 100vh;
+      margin: 0;
+    }
+
+    #content {
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #demo-wrapper,
+    #text-field {
+      flex-basis: 50%;
+
+    }
+
+    #demo-wrapper {
+      max-width: 50%;
+    }
+
+    pre {
+      overflow: auto !important;
+      margin: 0;
+      white-space: pre-wrap !important;
+    }
+
+    pre,
+    textarea {
+      width: 100%;
+      height: 100%;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    @media (max-width:1024px) {
+
+      #demo-wrapper,
+      #text-field {
+        flex-basis: 100%;
+
+      }
+
+      #demo-wrapper {
+        max-width: 100%;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="content">
+    <div id="demo-wrapper">
+
+    </div>
+    <div id="text-field">
+      <button type="button"
+        onclick="showParsedMolecule(document.getElementById('molecule').value.trim())">Submit</button>
+      <textarea type="text" name="" id="molecule">{[Co(NH3)4(OH)2]3Co}(SO4)3</textarea>
+
+    </div>
+    <div>
+
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      const demoWrapper = document.getElementById('demo-wrapper')
+      const pre = document.createElement('pre')
+      pre.innerHTML = PR.prettyPrintOne(`{               
+  "parsed_molecule": {
+    "Co": 4,
+    "N": 12,
+    "H": 42,
+    "O": 18,
+    "S": 3
+  },
+  "tree": {
+    "[Co(NH3)4(OH)2]3Co": {
+      "index": 1,
+      "Co(NH3)4(OH)2": {
+        "index": 3,
+        "Co": {},
+        "NH3": {
+          "index": 4
+        },
+        "(OH)2": {
+          "OH": {
+            "index": 2
+          }
+        }
+      },
+      "Co": {}
+    },
+    "(SO4)3": {
+      "SO4": {
+        "index": 3
+      }
+    }
+  }
+}`, null, true)
+      pre.className = 'prettyprint'
+      pre.id = 'demo'
+
+      demoWrapper.append(pre)
+    })
+
+    const demoWrapper = document.getElementById('demo-wrapper')
+    const showParsedMolecule = molecule => {
+      let outputText = null
+      try {
+        const parsedMolecule = parseMolecule(molecule)
+        outputText = JSON.stringify(parsedMolecule, null, 2)
+      } catch (err) {
+        console.log(err)
+        if (err instanceof TypeError)
+          outputText = JSON.stringify('La syntaxe de la formule est invalide, veuillez verifier l\'appéllation des molecules chimiques')
+        else
+          outputText = JSON.stringify('La formule est trop longue, vas-y mollo...')
+      }
+
+      const pre = document.createElement('pre')
+      pre.innerHTML = PR.prettyPrintOne(outputText, null, true)
+      pre.className = 'prettyprint'
+      pre.id = 'demo'
+      if (demoWrapper.hasChildNodes())
+        demoWrapper.removeChild(document.getElementById('demo'))
+      demoWrapper.append(pre)
+
+    }
+  </script>
+</body>
+
+</html>

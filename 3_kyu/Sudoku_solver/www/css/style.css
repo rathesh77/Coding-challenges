@@ -1,0 +1,30 @@
+.sudoku_cell {
+    width: 80px;
+    height: 80px;
+    font-size: 50px;
+    text-align: center;
+    border: 1px solid black
+}
+
+td {
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+
+}
+
+td:nth-child(3),
+td:nth-child(6) {
+    border-right: 5px solid black;
+}
+
+tr:nth-child(4),
+tr:nth-child(7) {
+    border-top: 5px solid black;
+}
+
+#error {
+    display: none;
+}
