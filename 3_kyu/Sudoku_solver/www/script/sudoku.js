@@ -14,8 +14,8 @@ function sudoku(puzzle) {
     let row = 0, col = 0
     while (row != 9) {
         if (Date.now() - begin > 1500)
-            throw new RangeError('Took too much time to resolve the generated sudoku')
-        
+            throw new WrongPuzzle('Took too much time to resolve the generated sudoku')
+
         if (!filled[row][col]) {
             puzzle[row][col]++
             while (puzzle[row][col] < 10 && !checkIfCellIsValid(puzzle[row][col], row, col, puzzle))
@@ -29,6 +29,8 @@ function sudoku(puzzle) {
                         row--
                         col = 8
                     }
+                    if (row < 0)
+                        throw new WrongPuzzle('This sudoku is unsolvable')
                 } while (filled[row][col])
                 continue
             }
