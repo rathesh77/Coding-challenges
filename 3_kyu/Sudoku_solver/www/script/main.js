@@ -4,23 +4,42 @@ let viewSolutionButton = document.getElementById('view_solution')
 let errorMessage = document.getElementById('error')
 let board = generateRandomSudokuBoard()
 
+constructDOM()
 fillBoard()
 
-function checkInput(e) {
-    if (e.value == '')
+function checkInput() {
+    if (this.value == '')
         return
-    const lastValue = (e.value + '').split('').slice(-1)[0]
+    const lastValue = (this.value + '').split('').slice(-1)[0]
     if (!(lastValue < 10 && lastValue > 0) && lastValue != null) {
-        e.value = 1
+        this.value = 1
         return
     }
-    e.value = lastValue
+    this.value = lastValue
 }
 
+function constructDOM() {
+    const table = document.createElement('table')
+    for (let i = 0; i < 9; i++) {
+        const tr = document.createElement('tr')
+        for (let j = 0; j < 9; j++) {
+            const td = document.createElement('td')
+            const input = document.createElement('input')
+            input.type = 'text'
+            input.className = 'sudoku_cell'
+            input.addEventListener('input', checkInput)
+            td.appendChild(input)
+            tr.appendChild(td)
+        }
+        table.appendChild(tr)
+    }
+    document.body.prepend(table)
+}
 
 function fillBoard() {
     let i = 0, j = 0
     for (const col of Array.from(document.getElementsByTagName('td'))) {
+        document.getElementsByTagName('tr')[i].children[j].children[0].style.color = 'black'
         if (board[i][j] == 0) {
             board[i][j] == ''
             col.children[0].value = ''
@@ -50,22 +69,29 @@ function isBoardValid() {
         }
         i++
     }
-    let valid = true
+    let mistakes = []
     for (let row = 0; row < puzzle.length; row++) {
         for (let col = 0; col < puzzle[row].length; col++) {
-            if (!checkIfCellIsValid(board[row][col], row, col, board)) {
-                valid = false
-                break
+            if (puzzle[row][col] == board[row][col])
+                continue
+            if (!checkIfCellIsValid(puzzle[row][col], row, col, puzzle)) {
+                if (puzzle[row][col] != 0) {
+                    mistakes.push({ row, col })
+                    document.getElementsByTagName('tr')[row].children[col].children[0].style.color = 'red'
+                }
+            } else {
+                document.getElementsByTagName('tr')[row].children[col].children[0].style.color = 'black'
             }
         }
     }
+
     errorMessage.style.display = 'block'
-
-    if (!valid)
-        errorMessage.innerText = 'Wrong'
+    console.log(mistakes)
+    if (mistakes.length !== 0)
+        errorMessage.innerText = 'Invalid board'
     else
-        errorMessage.innerText = 'Right'
-
+        errorMessage.innerText = 'Valid board'
+    return mistakes
 }
 
 function showSolution() {
@@ -114,7 +140,7 @@ function generateRandomSudokuBoard() {
             return newArray
 
         } catch (err) {
-            if (err instanceof RangeError)
+            if (err instanceof WrongPuzzle)
                 console.log(err)
         }
     }
