@@ -2,20 +2,21 @@ let submitButton = document.getElementById('submit_sudoku')
 let generateButton = document.getElementById('generate_random_board')
 let viewSolutionButton = document.getElementById('view_solution')
 let errorMessage = document.getElementById('error')
+let resetButton = document.getElementById('reset')
 let board = generateRandomSudokuBoard()
 
 constructDOM()
 fillBoard()
 
-function checkInput() {
+function checkInput(e) {
     if (this.value == '')
         return
-    const lastValue = (this.value + '').split('').slice(-1)[0]
-    if (!(lastValue < 10 && lastValue > 0) && lastValue != null) {
-        this.value = 1
+    const lastValue = +e.data
+    if (!(lastValue < 10 && lastValue > 0)) {
+        e.target.value = 1
         return
     }
-    this.value = lastValue
+    e.target.value = lastValue
 }
 
 function constructDOM() {
@@ -94,21 +95,19 @@ function isBoardValid() {
 
 function showSolution() {
     viewSolutionButton.disabled = 'disabled'
-    fillBoard(sudoku(board))
-
-}
-
-function disableButton() {
+    resetButton.disabled = 'disabled'
+    board = sudoku(board)
+    fillBoard()
 
 }
 
 function generateRandomSudokuBoard() {
-    disableButton()
     errorMessage.style.display = 'none'
 
     if (viewSolutionButton.attributes.getNamedItem('disabled'))
         viewSolutionButton.attributes.removeNamedItem('disabled')
-
+    if (resetButton.attributes.getNamedItem('disabled'))
+        resetButton.attributes.removeNamedItem('disabled')
     let puzzle = null
     while (1) {
         puzzle = [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]
