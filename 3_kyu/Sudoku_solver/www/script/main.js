@@ -72,13 +72,12 @@ function isBoardValid() {
     let mistakes = []
     for (let row = 0; row < puzzle.length; row++) {
         for (let col = 0; col < puzzle[row].length; col++) {
-            if (puzzle[row][col] == board[row][col])
-                continue
-            if (!checkIfCellIsValid(puzzle[row][col], row, col, puzzle)) {
-                if (puzzle[row][col] != 0) {
-                    mistakes.push({ row, col })
+            const isValid = checkIfCellIsValid(puzzle[row][col], row, col, puzzle)
+            if (!isValid) {
+                mistakes.push({ row, col })
+                if (puzzle[row][col] != board[row][col])
                     document.getElementsByTagName('tr')[row].children[col].children[0].style.color = 'red'
-                }
+
             } else {
                 document.getElementsByTagName('tr')[row].children[col].children[0].style.color = 'black'
             }
@@ -86,8 +85,7 @@ function isBoardValid() {
     }
 
     errorMessage.style.display = 'block'
-    console.log(mistakes)
-    if (mistakes.length !== 0)
+    if (mistakes.length != 0)
         errorMessage.innerText = 'Invalid board'
     else
         errorMessage.innerText = 'Valid board'
@@ -101,10 +99,7 @@ function showSolution() {
 }
 
 function disableButton() {
-    generateButton.disabled = true
-    setTimeout(function () {
-        generateButton.disabled = false
-    }, 2000)
+
 }
 
 function generateRandomSudokuBoard() {
