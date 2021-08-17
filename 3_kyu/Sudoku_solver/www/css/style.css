@@ -9,6 +9,10 @@
     color:black
 }
 
+.sudoku_cell[disabled] {
+    background-color:lightgrey;
+}
+
 td {
     padding: 0;
 }
