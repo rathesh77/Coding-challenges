@@ -1,92 +1,77 @@
 function add(x, y) {
 
-  console.log(x, y)
-  let a = ((x >= 0 ? x : -x) + '').split('').reverse()
-  let b = ((y >= 0 ? y : -y) + '').split('').reverse()
+  let xbin = (x >>> 0).toString(2);
+  let ybin = (y >>> 0).toString(2);
 
-  if ((x < 0 && y > 0) || (y < 0 && x > 0)) {
-    return sub(x, y)
-  }
-  if (a.length > b.length) {
-    let temp = a
+  let a = xbin.split('').reverse(), b = ybin.split('').reverse()
+
+  if (a.length < b.length) {
+    const temp = a
     a = b
     b = temp
   }
 
-  let i = 0
-  let add = ''
-  let retenu = 0
-  while (a[i] != null) {
-    const u = +a[i]
-    const v = +b[i]
-    const sum = u + v + retenu
-    add = (sum % 10) + add
-    retenu = parseInt(sum / 10)
-    i++
+  let cpt = 0
+  let finalNumber = ''
+  let carry = '0'
+  let res = ''
+  while (cpt < b.length) {
+    if (b[cpt] == '1' && a[cpt] == '1') {
+      res = '0'
+      if (carry == '1')
+        res = '1'
+      else
+        carry = '1'
+    }
+    else if (b[cpt] == '1' && a[cpt] == '0' || b[cpt] == '0' && a[cpt] == '1') {
+      res = '1'
+      if (carry == '1') {
+        res = '0'
+      }
+    } else {
+      if (carry == '1') {
+        res = '1'
+        carry = '0'
+
+      } else {
+        res = '0'
+        carry = '0'
+      }
+    }
+    finalNumber = res.concat(finalNumber)
+    cpt++
   }
 
-  while (b[i] != null) {
-    const u = +b[i]
-    const sum = u + retenu
-    add = (sum % 10) + add
-    retenu = parseInt(sum / 10)
-    i++
+  if (a.length == b.length) {
+    if (carry == '1')
+      finalNumber = '1'.concat(finalNumber)
+
+    return parseInt(finalNumber, 2)
   }
-  if (retenu)
-    add = retenu + add
-  if (x < 0 && y < 0)
-    add = '-' + add
-  return +add // Do your magic!
+
+
+  while (cpt < a.length) {
+
+    if (a[cpt] == '1' && carry == '1') {
+      res = '0'
+      carry = '1'
+    }
+    else if (a[cpt] == '1' && carry == '0' || a[cpt] == '0' && carry == '1') {
+      res = '1'
+      carry = '0'
+    } else {
+      res = '0'
+      carry = '0'
+    }
+    finalNumber = res.concat(finalNumber)
+    cpt++
+  }
+  if (carry == '1')
+    finalNumber = '1'.concat(finalNumber)
+
+  console.log(xbin, ybin, finalNumber)
+  return parseInt(finalNumber, 2)
 }
 
-function sub(x, y) {
 
-  if (Math.abs(x) < Math.abs(y)) {
-    const temp = x
-    x = y
-    y = temp
-  }
-
-  let a = ((x >= 0 ? x : -x) + '').split('').reverse()
-  let b = ((y >= 0 ? y : -y) + '').split('').reverse()
-
-  /*
-    si le plus grand nombre contient le signe '-' alors on fait une soustraction avec retenu  et on ajoute le '-' au resultat
-    sinon, on fait la soustraction mais on n'ajoute pas le '-' à la fin
-  */
-  let i = 0
-  let retenu = 0
-  let arr = ''
-  while (b[i] != null) {
-    const pa = +a[i]
-    const pb = +b[i]
-    if (pb + retenu > pa) {
-      arr = ((10 + pa) - (pb + retenu)) + arr
-      retenu = 1
-    }
-    else {
-      arr = (pa - (pb + retenu)) + arr
-      retenu = 0
-    }
-    i++
-  }
-  while (a[i] != null) {
-    if (+a[i] < retenu) {
-      arr = ((10 + +a[i]) - retenu) + arr
-      retenu = 1
-    }
-    else {
-      arr = (+a[i] - retenu) + arr
-      retenu = 0
-    }
-    i++
-  }
-
-  if (arr[0] == 0)
-    arr = arr.substring(1)
-  if (x < 0)
-    arr = '-' + arr
-  return +arr
-}
-
-console.log(add(-98013311, 1018035112))
+console.log(add(15, 56))
