@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 5000"
   },
   "author": "Rathesh CHARLES MAHENDRAN",
   "license": "ISC",
