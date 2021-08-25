@@ -31,61 +31,61 @@ class _Node {
     }
     addNext(node) {
         if (!node instanceof _Node)
-            return 'error when adding an adjacent dot'
+            return
         this.next.set(node.value, node)
         node.previous.set(this.value, this)
         return node
     }
 }
 
+const g = new UndirectedGraph()
+const dots = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+for (const dot of dots)
+    g.addNode(dot)
+
+g.connectNodes('A', 'B')
+g.connectNodes('A', 'D')
+g.connectNodes('A', 'E')
+g.connectNodes('A', 'H')
+g.connectNodes('A', 'F')
+
+g.connectNodes('B', 'C')
+g.connectNodes('B', 'D')
+g.connectNodes('B', 'E')
+g.connectNodes('B', 'F')
+g.connectNodes('B', 'I')
+g.connectNodes('B', 'G')
+
+g.connectNodes('C', 'E')
+g.connectNodes('C', 'F')
+g.connectNodes('C', 'H')
+g.connectNodes('C', 'D')
+
+g.connectNodes('D', 'E')
+g.connectNodes('D', 'G')
+g.connectNodes('D', 'H')
+g.connectNodes('D', 'I')
+
+g.connectNodes('E', 'G')
+g.connectNodes('E', 'H')
+g.connectNodes('E', 'F')
+g.connectNodes('E', 'I')
+
+g.connectNodes('H', 'F')
+g.connectNodes('H', 'I')
+g.connectNodes('H', 'G')
+
+g.connectNodes('I', 'F')
+
+g.connectNodes('G', 'F')
+
 function countPatternsFrom(firstPoint, length) {
     // Your code here
     if (length == 0)
         return 0
-    const g = new UndirectedGraph()
-    const dots = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
-    for (const dot of dots)
-        g.addNode(dot)
-
-    g.connectNodes('A', 'B')
-    g.connectNodes('A', 'D')
-    g.connectNodes('A', 'E')
-    g.connectNodes('A', 'H')
-    g.connectNodes('A', 'F')
-
-    g.connectNodes('B', 'C')
-    g.connectNodes('B', 'D')
-    g.connectNodes('B', 'E')
-    g.connectNodes('B', 'F')
-    g.connectNodes('B', 'I')
-    g.connectNodes('B', 'G')
-
-    g.connectNodes('C', 'E')
-    g.connectNodes('C', 'F')
-    g.connectNodes('C', 'H')
-    g.connectNodes('C', 'D')
-
-    g.connectNodes('D', 'E')
-    g.connectNodes('D', 'G')
-    g.connectNodes('D', 'H')
-    g.connectNodes('D', 'I')
-
-    g.connectNodes('E', 'G')
-    g.connectNodes('E', 'H')
-    g.connectNodes('E', 'F')
-    g.connectNodes('E', 'I')
-
-    g.connectNodes('H', 'F')
-    g.connectNodes('H', 'I')
-    g.connectNodes('H', 'G')
-
-    g.connectNodes('I', 'F')
-
-    g.connectNodes('G', 'F')
 
     let patterns = findPatterns(g, firstPoint, length - 1, {})
     return !Array.isArray(patterns) ? 1 : patterns.length
-
 }
 
 function findPatterns(g, startingPoint, length, alreadyUsedDots) {
