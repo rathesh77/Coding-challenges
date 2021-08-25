@@ -81,7 +81,7 @@ g.connectNodes('G', 'F')
 
 function countPatternsFrom(firstPoint, length) {
     // Your code here
-    if (length == 0)
+    if (length <= 0 || length > 9)
         return 0
 
     let patterns = findPatterns(g, firstPoint, length - 1, {})
