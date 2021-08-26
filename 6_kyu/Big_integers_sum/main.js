@@ -5,7 +5,7 @@ function sum() {
     let sum = arguments[0]
     let i = 1
     for (; i < arguments.length; i++)
-        sum = add(sum, ''+arguments[i])
+        sum = add(sum, arguments[i])
     i = 0
     while (sum[i] == '0')
         sum = sum.substring(i + 1)
@@ -14,8 +14,8 @@ function sum() {
 
 function add(x, y) {
 
-    let a = ((x >= 0 ? x : -x) + '').split('').reverse()
-    let b = ((y >= 0 ? y : -y) + '').split('').reverse()
+    let a = ((x >= 0 ? x : -x) + '')
+    let b = ((y >= 0 ? y : -y) + '')
 
     if (a.length > b.length) {
         let temp = a
@@ -23,27 +23,27 @@ function add(x, y) {
         b = temp
     }
 
-    let i = 0
+    let i = a.length - 1
+    let j = b.length - 1
     let add = ''
     let carry = 0
     while (a[i] != null) {
         const u = +a[i]
-        const v = +b[i]
+        const v = +b[j]
         const sum = u + v + carry
         add = (sum % 10) + add
         carry = parseInt(sum / 10)
-        i++
+        i--
+        j--
     }
-    while (b[i] != null) {
-        const u = +b[i]
+    while (b[j] != null) {
+        const u = +b[j]
         const sum = u + carry
         add = (sum % 10) + add
         carry = parseInt(sum / 10)
-        i++
+        j--
     }
     if (carry)
-        add = carry + add 
+        add = carry + add
     return add
 }
-
-console.log(sum('154531564897456456465155648978943121612315648964894889891566155645644564894894848489489489','498984894898448994898445231213186787899155612318974535624565461231234889789'))
