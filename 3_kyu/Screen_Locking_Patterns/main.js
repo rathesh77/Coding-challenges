@@ -1,13 +1,6 @@
 function countPatternsFrom(firstPoint, length) {
     if (length < 1 || length > 9)
         return 0
-    const patterns = findPatterns(firstPoint, length - 1, {})
-    return !Array.isArray(patterns) ? 1 : patterns.length
-}
-
-function findPatterns(start, length, alreadyUsedDots) {
-    if (length == 0)
-        return alreadyUsedDots
     const paths = {
         'A': ['B', 'D', 'E', 'H', 'F'],
         'B': ['A', 'C', 'E', 'D', 'F', 'I', 'G'],
@@ -29,15 +22,22 @@ function findPatterns(start, length, alreadyUsedDots) {
         'F': { 'E': 'D' },
         'I': { 'H': 'G', 'F': 'C', 'E': 'A' }
     }
+    const patterns = findPatterns(firstPoint, length - 1, {}, paths, passingOverDots)
+    return !Array.isArray(patterns) ? 1 : patterns.length
+}
+
+function findPatterns(start, length, alreadyUsedDots, paths, passingOverDots) {
+    if (length == 0)
+        return alreadyUsedDots
     alreadyUsedDots[start] = true
     let count = []
     for (const dot of paths[start]) {
         if (!alreadyUsedDots[dot]) {
-            count = count.concat(findPatterns(dot, length - 1, { ...alreadyUsedDots }))
+            count = count.concat(findPatterns(dot, length - 1, { ...alreadyUsedDots }, paths, passingOverDots))
         } else {
             const pod = passingOverDots[start]
             if (pod && pod[dot] && !alreadyUsedDots[pod[dot]])
-                count = count.concat(findPatterns(pod[dot], length - 1, { ...alreadyUsedDots }))
+                count = count.concat(findPatterns(pod[dot], length - 1, { ...alreadyUsedDots }, paths, passingOverDots))
         }
     }
     return count
