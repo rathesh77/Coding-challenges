@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "mocha": "^9.1.0"
+  }, 
+  "devDependencies": {
+    "ansi-regex": ">=5.0.1"
   }
 }
