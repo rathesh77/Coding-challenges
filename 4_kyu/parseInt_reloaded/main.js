@@ -67,14 +67,3 @@ module.exports = (string) => {
 	}
 	return result
 }
-/*
-console.log(parseInt('one'), 1);
-console.log(parseInt('twenty'), 20);
-console.log(parseInt('two hundred forty-six'), 246);
-console.log(parseInt('six hundred sixty-six thousand six hundred sixty-six'), 666666);
-console.log(parseInt('two thousand'), 2000);
-console.log(parseInt('two'), 2);
-console.log(parseInt('seven hundred thousand'), 700000);
-console.log(parseInt('two hundred thousand three'), 200003);
-console.log(parseInt('three hundred three thousand fifty-five'), 30355);
-*/
