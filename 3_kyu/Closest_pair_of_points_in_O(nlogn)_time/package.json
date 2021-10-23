@@ -1,0 +1,14 @@
+{
+  "name": "closest_pair_of_points_in_linearithmic_time",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Rathesh CHARLES MAHENDRAN",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^9.1.3"
+  }
+}
