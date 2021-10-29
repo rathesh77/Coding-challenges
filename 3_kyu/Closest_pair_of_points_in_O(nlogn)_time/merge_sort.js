@@ -1,9 +1,9 @@
-function mergeSort(a) {
-    //console.log(a)
-    if (a.length <= 1)
+function mergeSort(a, begin, end) {
+    //console.log(a, begin, end)
+    if (end - begin == 0)
         return a
 
-    if (a.length <= 2) {
+    if (end - begin == 1) {
         if (a[0] > a[1]) {
             const temp = a[0]
             a[0] = a[1]
@@ -11,45 +11,56 @@ function mergeSort(a) {
         }
         return a
     }
-    const left = mergeSort(a.slice(0, a.length / 2))
-    const right = mergeSort(a.slice(a.length / 2))
+    const mid = parseInt((begin + end) / 2)
+    mergeSort(a, begin, mid)
+    mergeSort(a, mid + 1, end)
 
-    return bruteForce(left, right)
+    return bruteForce(a, begin, mid, end)
 
 }
 
-function bruteForce(left, right) {
-    //console.log(left.length, right.length)
-    if (left.length < right.length) {
+function bruteForce(a, begin, mid, end) {
+    console.log(a.slice(begin, mid+1), a.slice(mid+1, end+1))
+    /*if (left.length < right.length) {
         const temp = left
         left = right
         right = temp
     }
 
-    let i = 0
-    let j = 0
-    while (j < right.length) {
-        while (left[i] < right[j] && i + 1 < left.length) {
+    if (right[0] >= left[left.length-1]) {
+        return left.concat(right)
+    }
+    if (right[right.length - 1] <= left[0]) {
+        return right.concat(left)
+    }
+    */
+    let i = begin
+    let j = mid + 1
+    while (j <= end) {
+        while (a[i] < a[j] && i + 1 <= mid) {
             i++
         }
-        if (i == left.length - 1) {
-            while (j < right.length) {
-                if (right[j] < left[i]) {
-                    left.splice(i, 0, right[j])
-                } else {
-                    left.push(right[j])
-                }
-                i++
-                j++
-            }
-            return left
+        if (i == mid) {
+            break
         }
-        left.splice(i, 0, right[j])
+        a.splice(i, 0, a[j])
+        a.splice(j + 1, 1)
+
         i++
         j++
     }
+    while (j <= end) {
+        if (a[j] <= a[i]) {
+            a.splice(i, 0, a[j])
+        } else {
+            a.splice(i + 1, 0, a[j])
+        }
+        a.splice(j + 1, 1)
 
-    return left
+        i++
+        j++
+    }
+    return a
 }
 
 function isSorted(a) {
@@ -80,6 +91,7 @@ for (let i = 0; i < 1000; i++) {
 
 
 
-//console.log(mergeSort([38, 27, 43, 3, 9, 82, 10]))
+console.log(mergeSort([38, 27, 43, 3, 9, 82, 10], 0, 6))
 
-console.log(bruteForce([3, 9, 10, 82], [27, 43]))
+//module.exports = mergeSort
+//console.log(bruteForce([3, 9, 10, 82], [27, 43]))
