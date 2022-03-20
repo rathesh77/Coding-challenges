@@ -129,12 +129,10 @@ function SQLEngine(database) {
   }
 
   this.comparison = function (left, operator, right) {
-    if (right[right.length - 1] == '\'')
-      right = right.substr(0, right.length - 1)
     if (typeof left == 'string')
-      left = left.toLowerCase()
+      left = left.toLowerCase().replace(/\'/g, '')
     if (typeof right == 'string')
-      right = right.toLowerCase()
+      right = right.toLowerCase().replace(/\'/g, '')
     if (operator == '=') {
       return left == right
     }
@@ -192,7 +190,7 @@ function SQLEngine(database) {
     const condition = {
       'left': groups[1],
       'operator': groups[2],
-      'right': groups[3].replace('\'', '')
+      'right': groups[3]
     }
     return condition
   }
