@@ -16,12 +16,12 @@ function SQLEngine(database) {
     let from = this.parseFrom(parts[2])
     let where = parts[3]
 
-    const firstTable = from.shift().table
+    const firstTable = from[0].table
 
     let resultSet = this.transformPropertiesOfTable(firstTable)
 
     // ------------ FROM TABLES
-    for (let i = 0; i < from.length; i++) {
+    for (let i = 1; i < from.length; i++) {
       const entry = from[i]
       if (entry.type == 'join') {
         resultSet = this.filterJoinType(resultSet, this.transformPropertiesOfTable(entry.table), entry.condition)
@@ -57,7 +57,7 @@ function SQLEngine(database) {
 
   this.cartesianProduct = function (resultSet, tablename) {
     const updatedSet = []
-    const dest = this.transformPropertiesOfTable(tablename)
+    const dest = database[tablename]
     for (let i = 0; i < resultSet.length; i++) {
       const left = resultSet[i]
       for (let j = 0; j < dest.length; j++) {
